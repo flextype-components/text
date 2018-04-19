@@ -86,12 +86,12 @@ Extract the first `$num` characters from a string.
 echo Text::left('Some text here', 4);
 ```
 
-Replaces newline with <br> or <br />.
+Replaces newline with `<br>` or `<br />`.
 ```php
 echo Text::nl2br("Some \n text \n here");
 ```
 
-Replaces <br> and <br /> with newline.
+Replaces `<br>` and `<br />` with newline.
 ```php
 echo Text::br2nl("Some <br /> text <br /> here");
 ```
