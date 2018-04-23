@@ -103,7 +103,7 @@ echo Text::ampEncode("M&CMS");
 
 Converts &amp; to &.
 ```php
-echo Text::ampEncode("M&amp;CMS");
+echo Text::ampDecode("M&amp;CMS");
 ```
 
 Convert plain text to html
