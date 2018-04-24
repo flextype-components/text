@@ -178,7 +178,7 @@ class Text
      * @param  string  $separator Separator
      * @return string
      */
-    public static function increment(strin $str, int $first = 1, string $separator = '_') : string
+    public static function increment(string $str, int $first = 1, string $separator = '_') : string
     {
         preg_match('/(.+)'.$separator.'([0-9]+)$/', $str, $match);
 
