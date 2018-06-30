@@ -178,7 +178,7 @@ class Text
      * @param  string  $separator Separator
      * @return string
      */
-    public static function increment(strin $str, int $first = 1, string $separator = '_') : string
+    public static function increment(string $str, int $first = 1, string $separator = '_') : string
     {
         preg_match('/(.+)'.$separator.'([0-9]+)$/', $str, $match);
 
@@ -347,4 +347,70 @@ class Text
         return html_entity_decode($str, ENT_QUOTES, 'utf-8');
     }
 
+    /**
+     * Create safe string. Use to create safe usernames or filenames.
+     *
+     * $safe_string = Text::safeString('hello world');
+     *
+     * @param  string   $str       String
+     * @param  string   $delimiter String delimiter
+     * @param  boolean  $lowercase String Lowercase
+     * @return string
+     */
+    public static function safeString(string $str, string $delimiter = '-', bool $lowercase = false) : string
+    {
+        // Remove tags
+        $str = filter_var($str, FILTER_SANITIZE_STRING);
+
+        // Decode all entities to their simpler forms
+        $str = html_entity_decode($str, ENT_QUOTES, 'UTF-8');
+
+        // Reserved characters (RFC 3986)
+        $reserved_characters = array(
+            '/', '?', ':', '@', '#', '[', ']',
+            '!', '$', '&', '\'', '(', ')', '*',
+            '+', ',', ';', '='
+        );
+
+        // Remove reserved characters
+        $str = str_replace($reserved_characters, ' ', $str);
+
+        // Set locale to en_US.UTF8
+        setlocale(LC_ALL, 'en_US.UTF8');
+
+        // Translit ua,ru => latin
+        $str = Text::translitIt($str);
+
+        // Convert string
+        $str = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+
+        // Remove characters
+        $str = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $str);
+        if ($delimiter != null) {
+            $str = preg_replace("/[\/_|+ -]+/", $delimiter, $str);
+            $str = trim($str, $delimiter);
+        }
+
+        // Lowercase
+        if ($lowercase === true) {
+            $str = Text::lowercase($str);
+        }
+
+        // Return safe name
+        return $str;
+    }
+
+    /**
+     * Encrypt string
+     *
+     * $encrypt_string = Text::encryptString('password', 'string_salt');
+     *
+     * @param string  $str      String to encrypt
+     * @param string  $str_salt String salt
+     * @return string
+     */
+    public static function encryptPassword($str, $str_salt = 'string_salt')
+    {
+        return md5(md5(trim($str) . $str_salt));
+    }
 }

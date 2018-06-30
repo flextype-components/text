@@ -1,8 +1,8 @@
 # Text Component
-![version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg?style=flat-square "Version")
+![version](https://img.shields.io/badge/version-1.1.0-brightgreen.svg?style=flat-square "Version")
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/flextype-components/text/blob/master/LICENSE)
 
-The Number Component contains methods that can be useful when working with numbers.
+Text Component is a set of methods to help with the manipulation of strings.
 
 ### Installation
 
@@ -109,6 +109,16 @@ echo Text::ampDecode("M&amp;CMS");
 Convert plain text to html
 ```php
 echo Text::toHtml('test');
+```
+
+Create safe string. Use to create safe usernames or filenames.
+```php
+$safe_string = Text::safeString('hello world');
+```
+
+Encrypt string
+```php
+$encrypt_string = Text::encryptString('password', 'string_salt');
 ```
 
 ## License
