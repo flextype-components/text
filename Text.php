@@ -409,7 +409,7 @@ class Text
      * @param string  $str_salt String salt
      * @return string
      */
-    public static function encryptPassword($str, $str_salt = 'string_salt')
+    public static function encryptString($str, $str_salt = 'string_salt')
     {
         return md5(md5(trim($str) . $str_salt));
     }
