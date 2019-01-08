@@ -1,3 +1,6 @@
+# v1.1.2, 2019-01-08
+* Translit function improvements
+
 # v1.1.1, 2018-07-17
 * typo fix
 
